@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.application.name }}
+  labels:
+    app: {{ .Values.application.name }}
+data:
+  aws_sqs_access_key: {{ .Values.env.aws_sqs_access_key }}
+  aws_sqs_secret_key: {{ .Values.env.aws_sqs_secret_key }}

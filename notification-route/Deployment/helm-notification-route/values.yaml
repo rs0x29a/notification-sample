@@ -11,3 +11,7 @@ application:
   port: 8090
   nodePort: 30080
   targetPort: 8080
+
+env:
+  aws_sqs_access_key: "AKIATPLFKR4YATN7OPDT"
+  aws_sqs_secret_key: "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"
