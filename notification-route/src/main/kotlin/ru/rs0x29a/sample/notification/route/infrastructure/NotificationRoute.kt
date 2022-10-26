@@ -35,7 +35,6 @@ class NotificationRoute : RouteBuilder() {
       .log("Notification found -> \${headers} : \${body}")
       .choice()
       .`when`(header("NotificationType").isEqualTo(NotificationType.SMS))
-      .process { it.`in`.body = ObjectMapper().writeValueAsString(it.`in`.body) }
       .log("Notification send -> SMS: \${body}")
       .to(SQS_URI_NOTIFICATION_SMS)
       .otherwise()
