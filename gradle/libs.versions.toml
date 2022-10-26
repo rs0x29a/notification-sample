@@ -1,0 +1,25 @@
+[versions]
+org-jetbrains-kotlin = "1.6.21"
+org-springframework-boot = "2.5.2"
+io-freefair-lombok = "6.3.0"
+org-projectlombok-lombok = "1.18.22"
+io-commons = "2.2"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "org-springframework-boot" }
+lombok = { id = "io.freefair.lombok", version.ref = "io-freefair-lombok" }
+
+[libraries]
+gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "org-jetbrains-kotlin" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "org-jetbrains-kotlin" }
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "org-springframework-boot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "org-springframework-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "org-springframework-boot" }
+spring-boot-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "org-springframework-boot" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "org-springframework-boot" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "org-projectlombok-lombok" }
+io-commons = { module = "commons-io:commons-io", version.ref = "io-commons" }
+
+[bundles]
+spring-boot = ["spring-boot-starter", "spring-boot-starter-validation"]

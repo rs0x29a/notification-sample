@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    org:
+      apache:
+        camel: ${LOGGING_LEVEL_ROOT:INFO}
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+  jackson:
+    default-property-inclusion: non_null
+  beaninfo:
+    ignore: true
+  task:
+    execution:
+      shutdown:
+        await-termination: true
+        await-termination-period: 30s
+    scheduling:
+      shutdown:
+        await-termination: true
+        await-termination-period: 30s
+
+camel:
+  component:
+    aws2-sqs:
+      access-key: ${AWS_SQS_ACCESS_KEY}
+      secret-key: ${AWS_SQS_SECRET_KEY}
