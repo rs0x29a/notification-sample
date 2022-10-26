@@ -1,34 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: {{ .Values.application.name }}
-  name: {{ .Values.application.name }}
+  labels: {{- include "chartLabels" . | nindent 4 }}
+    app: {{ include "appName" . }}
+  name: {{ include "appName" . }}
   namespace: default
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.application.name }}
+      app: {{ include "appName" . }}
   template:
     metadata:
       labels:
-        app: {{ .Values.application.name }}
+        app: {{ include "appName" . }}
     spec:
+      {{- if .Values.volumes }}
+      volumes: {{- include "volumes" . | indent 8 }}
+      {{- end }}
       containers:
-        - name: {{ .Values.application.name }}
+        - name: {{ include "appName" . }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy}}
           ports:
             - containerPort: {{ .Values.application.targetPort }}
           env:
-            - name: "AWS_SQS_ACCESS_KEY"
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.application.name }}
-                  key: aws_sqs_access_key
-            - name: "AWS_SQS_SECRET_KEY"
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.application.name }}
-                  key: aws_sqs_secret_key
+            - name: TZ
+              value: Europe/Moscow
+            - name: LANG
+              value: ru_RU.UTF-8
+          {{- if or .Values.envVars.app.config .Values.envVars.app.secret }}
+          envFrom:
+          {{- if .Values.envVars.app.config }}
+            - configMapRef:
+                name: {{ tpl .Values.envVars.app.config . }}
+          {{- end }}
+          {{- if .Values.envVars.app.secret }}
+            - secretRef:
+                name: {{ tpl .Values.envVars.app.secret . }}
+          {{- end }}
+          {{- end }}

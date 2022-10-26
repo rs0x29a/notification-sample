@@ -12,6 +12,18 @@ application:
   nodePort: 30080
   targetPort: 8080
 
-env:
-  aws_sqs_access_key: "AKIATPLFKR4YATN7OPDT"
-  aws_sqs_secret_key: "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"
+volumes:
+  app:
+    type: config
+
+envVars:
+  app:
+    config: "{{ .Chart.Name }}-config"
+    secret: "{{ .Chart.Name }}-secret"
+
+appConfigData:
+  LOGGING_LEVEL_ROOT: 'INFO'
+
+appSecretData:
+  AWS_SQS_ACCESS_KEY: ''
+  AWS_SQS_SECRET_KEY: ''
